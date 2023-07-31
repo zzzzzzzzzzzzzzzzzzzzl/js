@@ -1,28 +1,29 @@
 import { gameObject } from "./GameObject";
 import transform from "./components/transform";
 import { projectile } from "./projectile";
+import _ from "lodash";
 
 export class player extends gameObject {
   constructor(parent) {
-    super(new transform(250, 250, 20));
-    this.parent = parent;
+    super(new transform(250, 250, 20), parent);
+    this.arr = [];
   }
-  playerInput(p5) {
+  playerInput() {
     let x = 0;
     let y = 0;
-    if (p5.keyIsDown(87)) {
+    if (this.parent.p5.keyIsDown(87)) {
       y -= 0.5;
     }
 
-    if (p5.keyIsDown(68)) {
+    if (this.parent.p5.keyIsDown(68)) {
       x += 0.5;
     }
 
-    if (p5.keyIsDown(83)) {
+    if (this.parent.p5.keyIsDown(83)) {
       y += 0.5;
     }
 
-    if (p5.keyIsDown(65)) {
+    if (this.parent.p5.keyIsDown(65)) {
       x -= 0.5;
     }
     if (x && y) {
@@ -31,15 +32,15 @@ export class player extends gameObject {
     }
     this.transform.acceleration.x += x;
     this.transform.acceleration.y += y;
-    if (p5.keyIsDown(69)) {
-      console.log("e is down");
+    if (this.parent.p5.keyIsDown(69)) {
       this.fireProjectile();
     }
   }
   fireProjectile() {
     let a = new projectile(new transform(250, 250, 20));
-    this.parent.gameObjectArr.push(
-      new projectile(JSON.parse(JSON.stringify(this.transform)))
+    this.arr.push(a);
+    this.parent.objectManager.Arr.push(
+      new projectile(_.cloneDeep(this.transform), this.parent)
     );
   }
 }
