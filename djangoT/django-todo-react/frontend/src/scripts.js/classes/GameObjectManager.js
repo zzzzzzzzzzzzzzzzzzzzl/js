@@ -1,7 +1,10 @@
-export class gameObjectManager {
+import { Player } from "./gameObjects/Player";
+
+export class GameObjectManager {
   constructor(parent) {
     this.parent = parent;
-    this.Arr = [];
+    this.playerObject = new Player(this);
+    this.Arr = [this.playerObject];
   }
   renderGameObjects() {
     this.Arr.forEach((e) => {
@@ -14,11 +17,21 @@ export class gameObjectManager {
   }
   accelerateGameObjects() {
     this.Arr.forEach((e) => {
-      e.transform.accelerate();
+      e.final();
+    });
+  }
+  destroyGameObjects() {
+    this.Arr = this.Arr.filter((e) => {
+      if (e.destroy) {
+        return false;
+      }
+      return true;
     });
   }
   updateObjects() {
+    this.playerObject.playerInput();
     this.renderGameObjects();
     this.accelerateGameObjects();
+    this.destroyGameObjects();
   }
 }

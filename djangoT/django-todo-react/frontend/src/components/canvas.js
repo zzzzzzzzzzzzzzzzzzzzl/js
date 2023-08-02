@@ -1,10 +1,9 @@
 import React from "react";
 import Sketch from "react-p5";
-import { enviroment } from "../scripts.js/classes/enivorment";
-import { PerformanceStatistics } from "./performanceStatistics";
+import { Enviroment } from "../scripts.js/classes/Enivorment";
 
 function Canvas(x, y) {
-  let env = new enviroment(500, 500);
+  let env = new Enviroment(500, 500);
 
   return (
     <div>
