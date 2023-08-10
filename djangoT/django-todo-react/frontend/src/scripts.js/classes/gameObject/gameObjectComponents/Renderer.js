@@ -1,7 +1,7 @@
 import { Enviroment } from "../../Enivorment";
-import { Component } from "./Components";
+import { ParentChild } from "./ParentChild";
 
-export class Renderer {
+export class Renderer extends ParentChild {
   static all = [];
   static destroy() {
     Renderer.all = Renderer.all.filter((i) => {
@@ -18,7 +18,7 @@ export class Renderer {
   }
 
   constructor(parent, shape = Enviroment.p5.ellipse) {
-    this.parent = parent;
+    super(parent);
     this.shape = shape;
     Renderer.all.push(this);
   }

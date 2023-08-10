@@ -9,19 +9,19 @@ export class Player extends GameObject {
     let x = 0;
     let y = 0;
     if (Enviroment.p5.keyIsDown(87)) {
-      y -= 0.5;
+      y -= 0.025;
     }
 
     if (Enviroment.p5.keyIsDown(68)) {
-      x += 0.5;
+      x += 0.025;
     }
 
     if (Enviroment.p5.keyIsDown(83)) {
-      y += 0.5;
+      y += 0.025;
     }
 
     if (Enviroment.p5.keyIsDown(65)) {
-      x -= 0.5;
+      x -= 0.025;
     }
     if (Enviroment.p5.keyIsDown(81)) {
       this.dest();
@@ -37,7 +37,12 @@ export class Player extends GameObject {
     }
   }
   mouseDown() {
-    console.log("putsomthing in here");
+    let a = this.transform.getVector({
+      x: Enviroment.p5.mouseX,
+      y: Enviroment.p5.mouseY,
+    });
+    let b = this.transform.getRotation(a);
+    console.log(Math.sqrt(a.x ** 2 + a.y ** 2));
   }
 
   final() {
